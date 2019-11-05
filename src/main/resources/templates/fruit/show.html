@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Fruit</title>
+</head>
+<body>
+<script th:src="@{/js/jquery.min.js}" src="../../static/js/jquery.min.js"></script>
+<input type="text" class="input" id="fruitName" placeholder="请输入水果名"/>
+<input type="button" class="search_btn" value="搜索" onclick="search()"/>
+<hr>
+<span>以下是查询结果:</span><br><br>
+<div id="fruitData"></div>
+
+</body>
+</html>
+<script>
+    function search() {
+        var fruitName2 = $("#fruitName").val();
+
+        $.ajax({
+            url: "/getFruit",
+            data: {
+                fruitName: fruitName2
+            },
+            dataType: "json",
+            type: "GET",
+            success: function (data) {
+                if (data.code == 200) {
+                    $("#fruitData").html(data.data);
+                }
+            }
+        })
+    }
+
+</script>
